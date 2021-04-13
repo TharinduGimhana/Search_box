@@ -1,0 +1,43 @@
+<ng-template #content let-modal>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">Id</div>
+            <!-- <div class="col-lg-8">{{price}}</div> -->
+            <div class="col-lg-8">Name</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">{{id}}</div>
+            <!-- <div class="col-lg-8">{{price}}</div> -->
+            <div class="col-lg-8">{{name}}</div>
+        </div>
+    </div>
+
+
+</ng-template>
+
+
+
+
+<div>
+    <div class="row" *ngFor="let item of data">
+
+        <div class="col-md-6">
+            <span>
+                {{item?.Name}}
+            </span> <br>
+            <span>
+                {{item?.ItemCategory}}
+            </span>
+        </div>
+        <div class="col-md-3">
+            {{item?.DefaultPriceConcessionName}}
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary" (click)="viewPriceDetails(item,content)"> View Price Details</button>
+            <!-- <button class="btn btn-primary" (click)="getItem(content)"> View Price Details</button> -->
+        </div>
+        <hr>
+    </div>
+
+</div>

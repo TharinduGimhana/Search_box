@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Observable, OperatorFunction} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { MyservicesService } from '../myservices.service';
+
+
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -12,21 +15,27 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-searchbox',
+  templateUrl: './searchbox.component.html',
+  styleUrls: ['./searchbox.component.css']
 })
-export class AppComponent {
-  title = 'ngapp';
+export class SearchboxComponent implements OnInit {
+
+  
+  constructor(private _myservice:MyservicesService) { }
+
+  ngOnInit(): void {
+    
+  }
+
   public model: any;
 
-  formatter = (result: string) => result.toUpperCase();
 
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term === '' ? []
-        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  public onSearch(event){
+
+    this.model!==undefined?this._myservice.sendSearchText(this.model):this.model;
+     
+  }
+
+  
 }
